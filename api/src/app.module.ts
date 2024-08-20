@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './app/auth/auth.module';
+import { UserModule } from './app/user/user.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthModule } from './app/auth/auth.module';
       useFactory: configurationCache,
     }),
     AuthModule,
+    UserModule,
   ],
   providers: [
     {
