@@ -11,5 +11,6 @@ import { User } from 'src/domain/entities/user';
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
   providers: [UserService, CreateUser, BcryptService, UserRepository],
+  exports: [UserRepository],
 })
 export class UserModule {}

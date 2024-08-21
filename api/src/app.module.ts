@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/http-exception.filter';
 import { LoggingInterceptor } from './logging.interceptor';
 //Config
@@ -12,6 +12,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './app/auth/auth.module';
 import { UserModule } from './app/user/user.module';
+import { AuthGuard } from './app/auth/auth.guard';
 
 @Module({
   imports: [
@@ -36,6 +37,10 @@ import { UserModule } from './app/user/user.module';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
     {
       provide: APP_INTERCEPTOR,
