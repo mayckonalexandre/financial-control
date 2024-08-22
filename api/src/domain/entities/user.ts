@@ -1,30 +1,46 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  Column,
   Unique,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Revenue } from './revenues';
+import { Expense } from './expenses';
+import { Wallet } from './wallet';
 
-@Entity()
-@Unique(['id', 'email'])
+@Entity('user')
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id_user: string;
 
-  @Column({ length: 150 })
-  nome: string;
+  @Column({ type: 'varchar', length: 100 })
+  name: string;
 
-  @Column({ length: 255 })
-  email: string;
-
-  @Column({ length: 100 })
+  @Column({ type: 'varchar', length: 60 })
   password: string;
 
-  @CreateDateColumn()
-  criado: Date;
+  @Column({ type: 'varchar', length: 100 })
+  email: string;
 
-  @UpdateDateColumn()
-  alterado: Date;
+  @Column({ type: 'tinyint', default: 0 })
+  blocked: number;
+
+  @CreateDateColumn({ type: 'datetime' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'datetime' })
+  updated_at: Date;
+
+  @OneToMany(() => Revenue, (revenue) => revenue.user)
+  revenues: Revenue[];
+
+  @OneToMany(() => Expense, (expense) => expense.user)
+  expenses: Expense[];
+
+  @OneToMany(() => Wallet, (wallet) => wallet.user)
+  wallets: Wallet[];
 }

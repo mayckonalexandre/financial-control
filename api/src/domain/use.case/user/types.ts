@@ -1,5 +1,5 @@
 export type NewUser = {
-  nome: string;
+  name: string;
   password: string;
   email: string;
 };

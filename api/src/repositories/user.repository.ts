@@ -10,15 +10,15 @@ export class UserRepository {
     private user: Repository<User>,
   ) {}
 
-  async getById(id: string) {
-    return await this.user.findOne({ where: { id } });
+  async getById(id_user: string) {
+    return await this.user.findOne({ where: { id_user } });
   }
 
   async getByEmail(email: string) {
     return await this.user.findOne({ where: { email } });
   }
 
-  async create(data: { nome: string; password: string; email: string }) {
+  async create(data: { name: string; password: string; email: string }) {
     return await this.user.save(data);
   }
 }
