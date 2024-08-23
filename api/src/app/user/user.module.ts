@@ -6,9 +6,10 @@ import { UserRepository } from 'src/repositories/user.repository';
 import { BcryptService } from 'src/util/bcrypt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/domain/entities/user';
+import { WalletModule } from '../wallet/wallet.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]), WalletModule],
   controllers: [UserController],
   providers: [UserService, CreateUser, BcryptService, UserRepository],
   exports: [UserRepository],

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/http-exception.filter';
 import { LoggingInterceptor } from './logging.interceptor';
+import { AuthGuard } from './app/auth/auth.guard';
 //Config
 import configurationDataBase from './infrastructure/db';
 import configuration from './infrastructure/env';
@@ -12,7 +13,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './app/auth/auth.module';
 import { UserModule } from './app/user/user.module';
-import { AuthGuard } from './app/auth/auth.guard';
+import { RevenueModule } from './app/revenues/revenue.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthGuard } from './app/auth/auth.guard';
     }),
     AuthModule,
     UserModule,
+    RevenueModule,
   ],
   providers: [
     {

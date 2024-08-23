@@ -16,6 +16,8 @@ export default async (
     password: data.password,
     database: data.database,
     entities: [entitiesPath],
-    synchronize: true,
+    extra: {
+      decimalNumbers: true,
+    },
   };
 };

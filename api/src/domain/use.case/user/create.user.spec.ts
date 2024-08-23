@@ -46,7 +46,7 @@ describe('CreateUser', () => {
     (userRepository.create as jest.Mock).mockResolvedValue(newUser);
 
     const data: NewUser = {
-      nome: 'teste',
+      name: 'teste',
       email: 'test@test.com',
       password: 'password',
     };
@@ -72,7 +72,7 @@ describe('CreateUser', () => {
     (userRepository.getByEmail as jest.Mock).mockResolvedValue(existingUser);
 
     const data: NewUser = {
-      nome: 'teste',
+      name: 'teste',
       email: 'test@test.com',
       password: 'password',
     };
