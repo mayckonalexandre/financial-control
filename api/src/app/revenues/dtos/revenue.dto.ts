@@ -12,6 +12,10 @@ export class CreateRevenueDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  payment_method_id: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
   origin_id: number;
 
   @ApiProperty()

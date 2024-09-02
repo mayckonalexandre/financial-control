@@ -10,6 +10,7 @@ import {
 import { User } from './user';
 import { Category } from './category';
 import { Origin } from './origin';
+import { PaymentMethod } from './payment_method';
 
 @Entity('expenses')
 export class Expense {
@@ -24,6 +25,9 @@ export class Expense {
 
   @Column({ type: 'int' })
   origin_id: number;
+
+  @Column({ type: 'int' })
+  payment_method_id: number;
 
   @Column({ type: 'text' })
   description: string;
@@ -51,4 +55,8 @@ export class Expense {
   @ManyToOne(() => Origin, (origin) => origin.expenses)
   @JoinColumn({ name: 'origin_id' })
   origin: Origin;
+
+  @ManyToOne(() => PaymentMethod, (payment_method) => payment_method.expenses)
+  @JoinColumn({ name: 'payment_method_id' })
+  payment_method: PaymentMethod;
 }

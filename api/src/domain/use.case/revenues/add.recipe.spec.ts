@@ -50,6 +50,7 @@ describe('AddRecipe', () => {
     const newRevenue: NewRevenue = {
       category_id: 1,
       origin_id: 1,
+      payment_method_id: 1,
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
@@ -96,6 +97,7 @@ describe('AddRecipe', () => {
     const newRevenue: NewRevenue = {
       category_id: 1,
       origin_id: 1,
+      payment_method_id: 1,
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
@@ -120,6 +122,7 @@ describe('AddRecipe', () => {
     const newRevenue: NewRevenue = {
       category_id: 1,
       origin_id: 1,
+      payment_method_id: 1,
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
