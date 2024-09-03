@@ -14,6 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './app/auth/auth.module';
 import { UserModule } from './app/user/user.module';
 import { RevenueModule } from './app/revenues/revenue.module';
+import { CategoryModule } from './app/category/category.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { RevenueModule } from './app/revenues/revenue.module';
     AuthModule,
     UserModule,
     RevenueModule,
+    CategoryModule,
   ],
   providers: [
     {
