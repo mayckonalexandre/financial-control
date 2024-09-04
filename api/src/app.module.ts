@@ -15,6 +15,7 @@ import { AuthModule } from './app/auth/auth.module';
 import { UserModule } from './app/user/user.module';
 import { RevenueModule } from './app/revenues/revenue.module';
 import { CategoryModule } from './app/category/category.module';
+import { PaymentMethodModule } from './app/paymentMethod/payment.method.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { CategoryModule } from './app/category/category.module';
     UserModule,
     RevenueModule,
     CategoryModule,
+    PaymentMethodModule,
   ],
   providers: [
     {
