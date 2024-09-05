@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'ecommerce',
       script: 'dist/main.js',
-      instances: '1',
+      instances: 'max',
       exec_mode: 'cluster',
       max_memory_restart: '1G',
       max_restarts: '10',

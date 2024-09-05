@@ -1,6 +1,6 @@
 export default () => ({
   port: process.env.PORT,
-  jwt_secrete: process.env.JWT_SECRET,
+  jwt_secret: process.env.JWT_SECRET,
   database: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
