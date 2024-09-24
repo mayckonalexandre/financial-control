@@ -1,7 +1,9 @@
 "use server";
 
+import api from "@/config/api";
+
 export async function Authentication(email: string, password: string) {
-  const response = await fetch("http://localhost:3333/auth", {
+  const response = await fetch(`${api.base_url}/auth`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,8 +15,11 @@ export async function Authentication(email: string, password: string) {
   if (response.status != 200)
     return { success: false, message: response.statusText };
 
-  const { access_token, name }: { access_token: string; name: string } =
-    await response.json();
+  const {
+    access_token,
+    name,
+    id,
+  }: { access_token: string; name: string; id: string } = await response.json();
 
-  return { access_token, name };
+  return { access_token, name, id };
 }

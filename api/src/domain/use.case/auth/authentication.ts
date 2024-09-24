@@ -25,6 +25,8 @@ export class Authentication {
 
     return {
       access_token: await this.jwtService.signAsync(payload),
+      id: user.id_user,
+      name: user.name,
     };
   }
 }
