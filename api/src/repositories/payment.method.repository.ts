@@ -14,7 +14,7 @@ export class PaymentMethodRepository {
     return await this.paymentMethod.find();
   }
 
-  async create(name: string) {
-    return await this.paymentMethod.save({ name });
+  async create(payment_method: string) {
+    return await this.paymentMethod.save({ payment_method });
   }
 }

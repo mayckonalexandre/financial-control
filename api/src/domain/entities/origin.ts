@@ -15,7 +15,7 @@ export class Origin {
   id_origin: number;
 
   @Column({ type: 'varchar', length: 100 })
-  name: string;
+  origin: string;
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;

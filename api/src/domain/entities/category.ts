@@ -15,7 +15,7 @@ export class Category {
   id_category: number;
 
   @Column({ type: 'varchar', length: 100 })
-  name: string;
+  category: string;
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;

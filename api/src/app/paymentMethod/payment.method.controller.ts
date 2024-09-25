@@ -16,6 +16,6 @@ export class PaymentMethodController {
   @Post()
   @ApiBody({ type: CreatePaymentMethodDto })
   async create(@Body() body: CreatePaymentMethodDto) {
-    return await this.paymentMethodService.create(body.name);
+    return await this.paymentMethodService.create(body.payment_method);
   }
 }

@@ -18,11 +18,11 @@ export class CategoryRepository {
     return await this.category.findOne({ where: { id_category } });
   }
 
-  async getByName(name: string) {
-    return await this.category.findOneBy({ name });
+  async getByName(category: string) {
+    return await this.category.findOneBy({ category });
   }
 
-  async create(name: string) {
-    return await this.category.save({ name });
+  async create(category: string) {
+    return await this.category.save({ category });
   }
 }

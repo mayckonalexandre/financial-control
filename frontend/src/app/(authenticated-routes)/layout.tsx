@@ -1,3 +1,4 @@
+import Header from "@/components/default/header";
 import { authOptions } from "@/config/auth/auth.options";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -8,5 +9,10 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   if (!session) redirect("/auth/signin");
 
-  return children;
+  return (
+    <>
+      <Header user={session.user} />
+      {children}
+    </>
+  );
 }

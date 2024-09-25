@@ -11,7 +11,7 @@ export class PaymentMethodService {
     return await this.paymentMethodRepository.getAll();
   }
 
-  async create(name: string) {
-    return await this.paymentMethodRepository.create(name);
+  async create(payment_method: string) {
+    return await this.paymentMethodRepository.create(payment_method);
   }
 }

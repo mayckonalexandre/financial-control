@@ -18,7 +18,7 @@ export class OriginRepository {
     return await this.origin.findOne({ where: { id_origin } });
   }
 
-  async create(name: string) {
-    return await this.origin.save({ name });
+  async create(origin: string) {
+    return await this.origin.save({ origin });
   }
 }

@@ -3,30 +3,28 @@
 import api from "@/config/api";
 import { customFetch } from "../fetch";
 
-type RevenuesResponse = {
-  id_revenue: number;
+type TransactionsResponse = {
+  id: number;
   description: string;
   value: number;
   category: string;
   origin: string;
   payment_method: string;
+  type: string;
 };
 
-export async function getRevenues(id_revenue?: string) {
-  let url = `${api.base_url}/revenue`;
+export async function getTransactions() {
+  let url = `${api.base_url}/transactions`;
 
-  if (id_revenue) url = url + `/?id_revenue=${id_revenue}`;
-
-  const revenues: RevenuesResponse[] | null = await customFetch({
+  const transactions: TransactionsResponse[] | null = await customFetch({
     url,
     method: "GET",
     isAuthenticated: true,
     cache: "no-cache",
-    tags: ["revenues"],
     header: {
       "Content-Type": "application/json",
     },
   });
 
-  return revenues;
+  return transactions;
 }

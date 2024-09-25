@@ -4,5 +4,5 @@ import { IsOptional } from 'class-validator';
 export class CreatePaymentMethodDto {
   @ApiProperty()
   @IsOptional()
-  name: string;
+  payment_method: string;
 }

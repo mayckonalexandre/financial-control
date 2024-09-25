@@ -5,6 +5,7 @@ export type NewRevenue = Pick<
   | 'category_id'
   | 'origin_id'
   | 'description'
+  | 'date'
   | 'value'
   | 'user_id'
   | 'payment_method_id'

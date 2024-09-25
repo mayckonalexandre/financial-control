@@ -1,13 +1,13 @@
 "use server";
 
-import { logoutUser } from "@/app/api/logout";
 import { authOptions } from "@/config/auth/auth.options";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 type customFetchType = {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  body?: BodyInit;
+  body?: object;
   header?: HeadersInit;
   tags?: string[];
   cache?: RequestCache;
@@ -43,13 +43,8 @@ export async function customFetch(data: customFetchType) {
     },
   });
 
-  if (req.status === 401) {
-    logoutUser()
-    return null;
-  }
+  if (req.status === 401) redirect("/api/auth/logout");
   if (!acceptedStatuses.includes(req.status)) return null;
 
-  const response = await req.json();
-
-  return response;
+  return await req.json();
 }

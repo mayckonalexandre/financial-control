@@ -12,18 +12,42 @@ export class RevenueRepository {
   ) {}
 
   async get(filters: RecipeFilter) {
-    return await this.revenue.findBy(filters);
-  }
+    const whereOptions: {
+      [key: string]: {
+        instruction: string;
+        filter: { [key: string]: string | number };
+      };
+    } = {
+      user_id: {
+        instruction: 'rev.user_id = :userId',
+        filter: { userId: filters.user_id },
+      },
+      id_revenue: {
+        instruction: 'rev.id_revenue = :idRevenue',
+        filter: { idRevenue: filters.id_revenue },
+      },
+    };
 
-  async getAll() {
-    return await this.revenue.find();
-  }
+    const query = this.revenue
+      .createQueryBuilder('rev')
+      .innerJoin('rev.category', 'ctg')
+      .innerJoin('rev.origin', 'org')
+      .innerJoin('rev.payment_method', 'pm')
+      .select([
+        'rev.id_revenue AS id_revenue',
+        'rev.description AS description',
+        'rev.value AS value',
+        'ctg.category AS category',
+        'org.origin AS origin',
+        'pm.payment_method AS payment_method',
+      ])
+      .where('rev.deleted = :deleted', { deleted: 0 });
 
-  async getByUserId(user_id: string) {
-    return await this.revenue.findBy({ user_id, deleted: 0 });
-  }
+    Object.keys(filters).forEach((option) => {
+      const filter = whereOptions[option];
+      if (filter) query.andWhere(filter.instruction, filter.filter);
+    });
 
-  async getById(id_revenue: number) {
-    return await this.revenue.findOne({ where: { id_revenue, deleted: 0 } });
+    return await query.getRawMany();
   }
 }

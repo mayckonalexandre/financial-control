@@ -15,7 +15,7 @@ export class PaymentMethod {
   id_payment_method: number;
 
   @Column({ type: 'varchar', length: 100 })
-  name: string;
+  payment_method: string;
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;

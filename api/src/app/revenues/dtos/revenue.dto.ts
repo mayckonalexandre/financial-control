@@ -24,6 +24,10 @@ export class CreateRevenueDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  date: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
   value: number;
 }
 

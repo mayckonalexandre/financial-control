@@ -16,6 +16,9 @@ import { UserModule } from './app/user/user.module';
 import { RevenueModule } from './app/revenues/revenue.module';
 import { CategoryModule } from './app/category/category.module';
 import { PaymentMethodModule } from './app/paymentMethod/payment.method.module';
+import { WalletModule } from './app/wallet/wallet.module';
+import { TransactionsModule } from './app/transactions/transactions.module';
+import { OriginModule } from './app/origin/origin.module';
 
 @Module({
   imports: [
@@ -38,6 +41,9 @@ import { PaymentMethodModule } from './app/paymentMethod/payment.method.module';
     RevenueModule,
     CategoryModule,
     PaymentMethodModule,
+    WalletModule,
+    TransactionsModule,
+    OriginModule,
   ],
   providers: [
     {

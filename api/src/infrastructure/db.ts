@@ -16,6 +16,8 @@ export default async (
     password: data.password,
     database: data.database,
     entities: [entitiesPath],
+    logging: true,
+    logger: 'advanced-console',
     extra: {
       decimalNumbers: true,
     },

@@ -32,6 +32,9 @@ export class Revenue {
   @Column({ type: 'text' })
   description: string;
 
+  @Column({ type: 'date' })
+  date: Date;
+
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   value: number;
 
