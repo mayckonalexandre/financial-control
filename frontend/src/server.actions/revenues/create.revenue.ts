@@ -15,24 +15,12 @@ export async function createRevenue(
   formData: FormData
 ): Promise<CreateRevenueResponse> {
   const schema = z.object({
-    category_id: z
-      .string()
-      .trim()
-      .min(1, "Preencha o campo.")
-      .transform((value) => Number(value)),
-    origin_id: z
-      .string()
-      .trim()
-      .min(1, "Preencha o campo.")
-      .transform((value) => Number(value)),
-    payment_method_id: z
-      .string()
-      .trim()
-      .min(1, "Preencha o campo.")
-      .transform((value) => Number(value)),
-    value: z.number().min(1, "Preencha o campo."),
+    category: z.string().trim().min(1, "Preencha o campo."),
+    origin: z.string().trim().min(1, "Preencha o campo."),
+    payment_method: z.string().trim().min(1, "Preencha o campo."),
+    value: z.string().min(1, "Preencha o campo."),
     description: z.string().trim().min(1, "Preencha o campo."),
-    date: z.date(),
+    date: z.date({ message: "Preencha o campo." }),
   });
 
   console.log(formData);
@@ -48,11 +36,10 @@ export async function createRevenue(
       return prev;
     }, {} as { [key: string]: string });
 
-    return {
-      message: "",
-      success: false,
-      error: JSON.stringify(formatedError),
-    };
+    previousState.success = false;
+    previousState.error = JSON.stringify(formatedError);
+
+    return previousState;
   }
 
   const newRevenue = await customFetch({
@@ -65,8 +52,8 @@ export async function createRevenue(
     },
   });
 
-  return {
-    success: true,
-    message: "Receita adicionada com sucesso!",
-  };
+  previousState.success = true;
+  previousState.message = "Receita adicionada com sucesso!";
+
+  return previousState;
 }

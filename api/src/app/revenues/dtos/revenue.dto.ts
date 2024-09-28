@@ -8,15 +8,15 @@ export class CreateRevenueDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  category_id: number;
+  category: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  payment_method_id: number;
+  payment_method: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  origin_id: number;
+  origin: string;
 
   @ApiProperty()
   @IsNotEmpty()

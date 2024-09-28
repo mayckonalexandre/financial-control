@@ -3,17 +3,17 @@
 import api from "@/config/api";
 import { customFetch } from "./fetch";
 
-type Origin = {
+export type Origin = {
   id_origin: number;
   origin: string;
 };
 
-type Category = {
+export type Category = {
   id_category: number;
   category: string;
 };
 
-type PaymentMethod = {
+export type PaymentMethod = {
   id_payment_method: number;
   payment_method: string;
 };

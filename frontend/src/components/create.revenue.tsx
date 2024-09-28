@@ -10,13 +10,25 @@ import { ButtonCustom } from "./default/button";
 import { X } from "lucide-react";
 import { InputCustom } from "./default/input";
 import SelectCustom from "./default/select";
+import { Category, Origin, PaymentMethod } from "@/server.actions/options";
+import { DatePicker } from "./default/date.picker";
 
-export function CreateRevenue() {
+type CreateRevenueProps = {
+  origin: Origin[];
+  category: Category[];
+  payment_method: PaymentMethod[];
+};
+
+export function CreateRevenue(props: CreateRevenueProps) {
+  const { origin, category, payment_method } = props;
+
   const [state, formAction] = useFormState(createRevenue, {
     message: "",
     success: false,
     error: "",
   });
+
+  console.log(state);
   const [openComponent, setOpenComponente] = useState(false);
 
   const open = () => setOpenComponente((state) => !state);
@@ -47,42 +59,59 @@ export function CreateRevenue() {
               />
 
               <span className="text-red-500 text-sm">
-                {error?.name?.toString()}
+                {error?.description?.toString()}
+              </span>
+
+              <InputCustom
+                placeholder="Informe o valor"
+                type="text"
+                registerName="value"
+                className="border-gray-600 bg-gray-800 text-white"
+              />
+
+              <span className="text-red-500 text-sm">
+                {error?.value?.toString()}
+              </span>
+
+              <DatePicker />
+
+              <span className="text-red-500 text-sm">
+                {error?.date?.toString()}
               </span>
 
               <SelectCustom
                 placeholder="Categoria"
                 label="Categorias"
-                options={[{ id: 1, name: "Teste" }]}
-                name="category_id"
+                options={category}
+                name="category"
               />
+
+              <span className="text-red-500 text-sm">
+                {error?.category?.toString()}
+              </span>
 
               <SelectCustom
                 placeholder="Origem"
                 label="Categorias"
-                options={[{ id: 1, name: "Teste" }]}
-                name="category_id"
+                options={origin}
+                name="origin"
               />
+
+              <span className="text-red-500 text-sm">
+                {error?.origin?.toString()}
+              </span>
 
               <SelectCustom
                 placeholder="Metodo"
                 label="Categorias"
-                options={[{ id: 1, name: "Teste" }]}
-                name="category_id"
+                options={payment_method}
+                name="payment_method"
               />
 
               <span className="text-red-500 text-sm">
-                {error?.name?.toString()}
+                {error?.payment_method?.toString()}
               </span>
 
-              <InputCustom
-                placeholder=""
-                type="text"
-                className="border-gray-600 bg-gray-800 text-white"
-              />
-              <span className="text-red-500 text-sm">
-                {error?.name?.toString()}
-              </span>
               <ButtonCustom type="submit" value="Adicionar" className="" />
             </form>
           </div>

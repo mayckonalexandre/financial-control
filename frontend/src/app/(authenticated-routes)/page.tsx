@@ -26,7 +26,13 @@ export default async function Home({
 
   return (
     <main className="flex flex-col gap-2.5">
-      {origin && category && payment_method && <CreateRevenue />}
+      {origin && category && payment_method && (
+        <CreateRevenue
+          category={category}
+          origin={origin}
+          payment_method={payment_method}
+        />
+      )}
 
       <Wallet />
 
