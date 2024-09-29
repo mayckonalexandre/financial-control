@@ -68,5 +68,5 @@ export async function createAccount(
     };
   }
 
-  redirect("/signin");
+  redirect("/auth/signin");
 }

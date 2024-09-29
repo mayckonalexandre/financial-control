@@ -2,6 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
+import Loading from "./loading";
 
 type IButtonProps = {
   value: any;
@@ -18,6 +19,8 @@ export function ButtonCustom({
 }: IButtonProps) {
   const { pending } = useFormStatus();
 
+  if (pending) <Loading />;
+  
   return (
     <Button
       onClick={() => onClick && onClick()}

@@ -1,11 +1,10 @@
 import { User } from "next-auth";
+import { Title } from "./title";
 
 export default function Header({ user }: { user: User | null }) {
   return (
     <header>
-      <div>
-        <h1>Olá {user?.name}</h1>
-      </div>
+      <Title message={`Olá ${user?.name}`} />
     </header>
   );
 }

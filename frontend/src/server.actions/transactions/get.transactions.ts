@@ -11,6 +11,7 @@ type TransactionsResponse = {
   origin: string;
   payment_method: string;
   type: string;
+  date: string
 };
 
 export async function getTransactions() {
@@ -24,6 +25,7 @@ export async function getTransactions() {
     header: {
       "Content-Type": "application/json",
     },
+    tags: ["transactions"],
   });
 
   return transactions;

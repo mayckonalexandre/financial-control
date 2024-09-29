@@ -8,18 +8,16 @@ export class TransactionsRepository {
   async getAllTransactions(user_id: string) {
     const sql = `SELECT 
   rev.id_revenue AS id,
-  rev.description AS description,
+  description,
   rev.value AS value,
-  ctg.category AS category,
-  org.origin AS origin,
-  pm.payment_method AS payment_method,
+  category,
+  origin,
+  payment_method,
+  date,
   'revenue' AS type
 FROM 
   user usr
 INNER JOIN revenues rev ON rev.user_id = usr.id_user
-INNER JOIN category ctg ON rev.category_id = ctg.id_category
-INNER JOIN origin org ON org.id_origin = rev.origin_id
-INNER JOIN payment_method pm ON pm.id_payment_method = rev.payment_method_id
 WHERE usr.id_user = ?
   AND rev.deleted = 0
 
@@ -27,20 +25,18 @@ UNION ALL
 
 SELECT 
   exp.id_expense AS id,
-  exp.description AS description,
+  description,
   exp.value AS value,
-  ctg.category AS category,
-  org.origin AS origin,
-  pm.payment_method AS payment_method,
+  category,
+  origin,
+  payment_method,
+  date,
   'expense' AS type
 FROM 
   user usr
 INNER JOIN expenses exp ON exp.user_id = usr.id_user
-INNER JOIN category ctg ON exp.category_id = ctg.id_category
-INNER JOIN origin org ON org.id_origin = exp.origin_id
-INNER JOIN payment_method pm ON pm.id_payment_method = exp.payment_method_id
 WHERE usr.id_user = ?
-  AND exp.deleted = 0
+  AND exp.deleted = 0;
 `;
 
     const transactions = await this.dataSource.query(sql, [user_id, user_id]);

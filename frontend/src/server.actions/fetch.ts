@@ -44,7 +44,11 @@ export async function customFetch(data: customFetchType) {
   });
 
   if (req.status === 401) redirect("/api/auth/logout");
-  if (!acceptedStatuses.includes(req.status)) return null;
 
-  return await req.json();
+  const response = await req.json();
+
+  if (!acceptedStatuses.includes(req.status))
+    return { ...response, success: false };
+
+  return response;
 }

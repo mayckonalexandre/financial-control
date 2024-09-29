@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "./default/modal";
 import { useFormState } from "react-dom";
 import { createRevenue } from "@/server.actions/revenues/create.revenue";
@@ -28,7 +28,6 @@ export function CreateRevenue(props: CreateRevenueProps) {
     error: "",
   });
 
-  console.log(state);
   const [openComponent, setOpenComponente] = useState(false);
 
   const open = () => setOpenComponente((state) => !state);
@@ -41,10 +40,14 @@ export function CreateRevenue(props: CreateRevenueProps) {
       : Toast({ message: state.message, type: "error" });
 
   return (
-    <>
-      <ButtonCustom onClick={open} value="Adicionar Receita" />
+    <React.Fragment>
+      <ButtonCustom
+        onClick={open}
+        value="Adicionar Receita"
+        className="w-40 bg-blue-500 hover:bg-blue-600"
+      />
       {openComponent && (
-        <Modal>
+        <Modal className="justify-end">
           <div className="flex flex-col bg-gray-950 w-[500px] p-6 gap-4 rounded-lg shadow h-screen">
             <div className="flex items-center justify-between">
               <Title message="Adicionar Receita" />
@@ -73,7 +76,7 @@ export function CreateRevenue(props: CreateRevenueProps) {
                 {error?.value?.toString()}
               </span>
 
-              <DatePicker />
+              <DatePicker name="date" />
 
               <span className="text-red-500 text-sm">
                 {error?.date?.toString()}
@@ -117,6 +120,6 @@ export function CreateRevenue(props: CreateRevenueProps) {
           </div>
         </Modal>
       )}
-    </>
+    </React.Fragment>
   );
 }

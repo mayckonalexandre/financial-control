@@ -3,6 +3,7 @@
 import z from "zod";
 import { customFetch } from "../fetch";
 import api from "@/config/api";
+import { revalidateTag } from "next/cache";
 
 type CreateRevenueResponse = {
   message: string;
@@ -18,12 +19,13 @@ export async function createRevenue(
     category: z.string().trim().min(1, "Preencha o campo."),
     origin: z.string().trim().min(1, "Preencha o campo."),
     payment_method: z.string().trim().min(1, "Preencha o campo."),
-    value: z.string().min(1, "Preencha o campo."),
+    value: z
+      .string()
+      .min(1, "Preencha o campo.")
+      .transform((value) => Number(value)),
     description: z.string().trim().min(1, "Preencha o campo."),
-    date: z.date({ message: "Preencha o campo." }),
+    date: z.string().trim().min(1, "Preencha o campo."),
   });
-
-  console.log(formData);
 
   const { success, data, error } = schema.safeParse(
     Object.fromEntries(formData.entries())
@@ -51,6 +53,15 @@ export async function createRevenue(
       "Content-Type": "application/json",
     },
   });
+
+  if (!newRevenue.success) {
+    previousState.success = false;
+    previousState.message = newRevenue.message;
+
+    return previousState;
+  }
+
+  revalidateTag("transactions");
 
   previousState.success = true;
   previousState.message = "Receita adicionada com sucesso!";

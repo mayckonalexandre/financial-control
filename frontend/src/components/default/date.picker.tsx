@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
 
+import dayjs from "dayjs";
+import ptBR from "dayjs/locale/pt-BR";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,10 +14,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+dayjs.locale(ptBR);
 
-  console.log(date)
+type DatePickerProps = {
+  name?: string;
+};
+
+export function DatePicker(props: DatePickerProps) {
+  const [date, setDate] = React.useState<Date>();
 
   return (
     <Popover>
@@ -24,15 +29,19 @@ export function DatePicker() {
         <Button
           variant={"outline"}
           className={cn(
-            "justify-start text-left font-normal",
+            "flex items-center justify-start text-left font-normal text-black",
             !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Selecione a data</span>}
+          {date ? (
+            dayjs(date).format("DD/MM/YYYY")
+          ) : (
+            <span>Selecione a data</span>
+          )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
@@ -40,6 +49,12 @@ export function DatePicker() {
           initialFocus
         />
       </PopoverContent>
+
+      <input
+        type="hidden"
+        name={props.name}
+        value={date ? dayjs(date).format("YYYY-MM-DD") : ""}
+      />
     </Popover>
   );
 }
