@@ -8,7 +8,7 @@ interface InputCustomProps {
   register?: UseFormRegister<any>;
   setStateString?: React.Dispatch<React.SetStateAction<string>>;
   registerName?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
   disabled?: boolean;
 }
 
@@ -32,7 +32,7 @@ export function InputCustom({
       placeholder={placeholder}
       className={`${
         className ?? ""
-      } p-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+      } p-2 rounded-lg border bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
       type={type || "text"}
       defaultValue={defaultValue}
       disabled={disabled}

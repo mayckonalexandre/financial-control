@@ -10,14 +10,14 @@ type TransactionsResponse = {
   category: string;
   origin: string;
   payment_method: string;
-  type: string;
-  date: string
+  type: "revenue" | "expense";
+  date: string;
 };
 
 export async function getTransactions() {
   let url = `${api.base_url}/transactions`;
 
-  const transactions: TransactionsResponse[] | null = await customFetch({
+  const req = await customFetch({
     url,
     method: "GET",
     isAuthenticated: true,
@@ -28,5 +28,7 @@ export async function getTransactions() {
     tags: ["transactions"],
   });
 
-  return transactions;
+  const data: TransactionsResponse[] = req.data ?? null;
+
+  return data;
 }

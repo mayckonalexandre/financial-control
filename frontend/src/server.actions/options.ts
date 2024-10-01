@@ -19,34 +19,39 @@ export type PaymentMethod = {
 };
 
 export async function getSources() {
-  const req: Origin[] | null = await customFetch({
+  const req = await customFetch({
     url: `${api.base_url}/origin`,
     method: "GET",
     isAuthenticated: true,
     cache: "force-cache",
   });
 
-  return req;
+  const data: Origin[] = req.data ?? null;
+
+  return data;
 }
 
 export async function getCategories() {
-  const req: Category[] | null = await customFetch({
+  const req = await customFetch({
     url: `${api.base_url}/category`,
     method: "GET",
     isAuthenticated: true,
     cache: "force-cache",
   });
+  const data: Category[] = req.data ?? null;
 
-  return req;
+  return data;
 }
 
 export async function getPaymentMethods() {
-  const req: PaymentMethod[] | null = await customFetch({
+  const req = await customFetch({
     url: `${api.base_url}/paymentmethod`,
     method: "GET",
     isAuthenticated: true,
     cache: "force-cache",
   });
 
-  return req;
+  const data: PaymentMethod[] = req.data ?? null;
+
+  return data;
 }

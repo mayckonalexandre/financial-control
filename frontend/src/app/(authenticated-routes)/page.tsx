@@ -1,9 +1,8 @@
 import { Title } from "@/components/default/title";
 import { SignOutComponent } from "@/components/sign.out";
 import { formatValueInReal } from "@/util/formatting";
-import Wallet from "./wallet";
-import { getTransactions } from "@/server.actions/transactions/get.transactions";
-import { CreateRevenue } from "@/components/create.revenue";
+import { getTransactions } from "@/server.actions/transaction/get.transactions";
+import { CreateTransaction } from "@/components/create.transaction";
 import {
   getSources,
   getCategories,
@@ -12,6 +11,8 @@ import {
 import dayjs from "dayjs";
 import { Suspense } from "react";
 import Loading from "@/components/default/loading";
+import Wallet from "@/components/wallet/wallet";
+import { DeleteTransaction } from "@/components/delete.transaction";
 
 export default async function Home({
   searchParams,
@@ -28,11 +29,11 @@ export default async function Home({
   ]);
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className="flex flex-col gap-2.5 p-2.5">
       <Suspense fallback={<Loading />}>
         <div className="absolute top-5 right-5 flex gap-2.5 items-center justify-center">
           {origin && category && payment_method && (
-            <CreateRevenue
+            <CreateTransaction
               category={category}
               origin={origin}
               payment_method={payment_method}
@@ -43,7 +44,7 @@ export default async function Home({
 
         <Wallet />
 
-        <Title message="Receitas" />
+        <Title message="Transações" />
 
         {transactions ? (
           <div className="overflow-x-auto">
@@ -57,6 +58,7 @@ export default async function Home({
                   <th className="px-4 py-2 text-center">Método</th>
                   <th className="px-4 py-2 text-center">Data</th>
                   <th className="px-4 py-2 text-center">Valor</th>
+                  <th className="px-4 py-2 text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -83,6 +85,12 @@ export default async function Home({
                       }`}
                     >
                       {formatValueInReal(transaction.value)}
+                    </td>
+                    <td className="text-center">
+                      <DeleteTransaction
+                        id={transaction.id}
+                        type={transaction.type}
+                      />
                     </td>
                   </tr>
                 ))}

@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${poppins.className} bg-gray-950 text-white p-2.5`}>
+      <body className={`${poppins.className} bg-gray-950 text-white`}>
         <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
         <ToastContainer />
       </body>

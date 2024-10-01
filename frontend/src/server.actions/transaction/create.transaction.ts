@@ -5,17 +5,20 @@ import { customFetch } from "../fetch";
 import api from "@/config/api";
 import { revalidateTag } from "next/cache";
 
-type CreateRevenueResponse = {
+type CreateTransactionResponse = {
   message: string;
   success: boolean;
   error?: string;
 };
 
-export async function createRevenue(
-  previousState: CreateRevenueResponse,
+export async function createTransaction(
+  previousState: CreateTransactionResponse,
   formData: FormData
-): Promise<CreateRevenueResponse> {
+): Promise<CreateTransactionResponse> {
   const schema = z.object({
+    type: z
+      .enum(["Receita", "Despesa"])
+      .transform((value) => (value === "Receita" ? "revenue" : "expense")),
     category: z.string().trim().min(1, "Preencha o campo."),
     origin: z.string().trim().min(1, "Preencha o campo."),
     payment_method: z.string().trim().min(1, "Preencha o campo."),
@@ -44,8 +47,8 @@ export async function createRevenue(
     return previousState;
   }
 
-  const newRevenue = await customFetch({
-    url: `${api.base_url}/revenue`,
+  const newTransaction = await customFetch({
+    url: `${api.base_url}/${data.type}`,
     method: "POST",
     isAuthenticated: true,
     body: data,
@@ -54,9 +57,10 @@ export async function createRevenue(
     },
   });
 
-  if (!newRevenue.success) {
+  if (newTransaction.success === false) {
     previousState.success = false;
-    previousState.message = newRevenue.message;
+    previousState.message =
+      newTransaction.message ?? "Erro ao criar transação!";
 
     return previousState;
   }
@@ -64,7 +68,7 @@ export async function createRevenue(
   revalidateTag("transactions");
 
   previousState.success = true;
-  previousState.message = "Receita adicionada com sucesso!";
+  previousState.message = "Transação adicionada com sucesso!";
 
   return previousState;
 }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Modal } from "./default/modal";
 import { useFormState } from "react-dom";
-import { createRevenue } from "@/server.actions/revenues/create.revenue";
+import { createTransaction } from "@/server.actions/transaction/create.transaction";
 import { Toast } from "./default/toastify";
 import { Title } from "./default/title";
 import { ButtonCustom } from "./default/button";
@@ -19,10 +19,10 @@ type CreateRevenueProps = {
   payment_method: PaymentMethod[];
 };
 
-export function CreateRevenue(props: CreateRevenueProps) {
+export function CreateTransaction(props: CreateRevenueProps) {
   const { origin, category, payment_method } = props;
 
-  const [state, formAction] = useFormState(createRevenue, {
+  const [state, formAction] = useFormState(createTransaction, {
     message: "",
     success: false,
     error: "",
@@ -34,26 +34,43 @@ export function CreateRevenue(props: CreateRevenueProps) {
 
   const error = state.error ? JSON.parse(state.error) : null;
 
-  if (state.message)
+  if (state.message) {
     state.success
       ? Toast({ message: state.message, type: "success" })
       : Toast({ message: state.message, type: "error" });
+
+    state.message = "";
+  }
 
   return (
     <React.Fragment>
       <ButtonCustom
         onClick={open}
-        value="Adicionar Receita"
+        value="Nova Transação"
         className="w-40 bg-blue-500 hover:bg-blue-600"
       />
       {openComponent && (
         <Modal className="justify-end">
           <div className="flex flex-col bg-gray-950 w-[500px] p-6 gap-4 rounded-lg shadow h-screen">
             <div className="flex items-center justify-between">
-              <Title message="Adicionar Receita" />
+              <Title message="Nova Transação" />
               <X onClick={open} className="cursor-pointer" />
             </div>
-            <form action={formAction} className="flex flex-col gap-4">
+            <form action={formAction} className="flex flex-col gap-2.5">
+              <SelectCustom
+                placeholder="Tipo"
+                label="Tipos"
+                options={[
+                  { value: "Receita", name: "Receita" },
+                  { value: "Despesa", name: "Despesa" },
+                ]}
+                name="type"
+              />
+
+              <span className="text-red-500 text-sm">
+                {error?.type?.toString()}
+              </span>
+
               <InputCustom
                 placeholder="Descrição"
                 type="text"
@@ -74,12 +91,6 @@ export function CreateRevenue(props: CreateRevenueProps) {
 
               <span className="text-red-500 text-sm">
                 {error?.value?.toString()}
-              </span>
-
-              <DatePicker name="date" />
-
-              <span className="text-red-500 text-sm">
-                {error?.date?.toString()}
               </span>
 
               <SelectCustom
@@ -115,7 +126,17 @@ export function CreateRevenue(props: CreateRevenueProps) {
                 {error?.payment_method?.toString()}
               </span>
 
-              <ButtonCustom type="submit" value="Adicionar" className="" />
+              <DatePicker name="date" />
+
+              <span className="text-red-500 text-sm">
+                {error?.date?.toString()}
+              </span>
+
+              <ButtonCustom
+                type="submit"
+                value="Adicionar"
+                className="bg-blue-500 hover:bg-blue-600"
+              />
             </form>
           </div>
         </Modal>

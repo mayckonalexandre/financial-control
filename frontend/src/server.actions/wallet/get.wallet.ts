@@ -12,7 +12,7 @@ type WalletResponse = {
 export async function getWallet() {
   const url = `${api.base_url}/wallet`;
 
-  const wallet: WalletResponse = await customFetch({
+  const req = await customFetch({
     url,
     method: "GET",
     isAuthenticated: true,
@@ -21,6 +21,7 @@ export async function getWallet() {
     },
     tags: ["wallet"],
   });
+  const data: WalletResponse = req.data ?? null;
 
-  return wallet;
+  return data;
 }

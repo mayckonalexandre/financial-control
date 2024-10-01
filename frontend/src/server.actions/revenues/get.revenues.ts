@@ -17,7 +17,7 @@ export async function getRevenues(id_revenue?: string) {
 
   if (id_revenue) url = url + `/?id_revenue=${id_revenue}`;
 
-  const revenues: RevenuesResponse[] | null = await customFetch({
+  const req = await customFetch({
     url,
     method: "GET",
     isAuthenticated: true,
@@ -28,5 +28,7 @@ export async function getRevenues(id_revenue?: string) {
     },
   });
 
-  return revenues;
+  const data: RevenuesResponse[] = req.data ?? null;
+
+  return data;
 }
