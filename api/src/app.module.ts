@@ -19,6 +19,7 @@ import { PaymentMethodModule } from './app/paymentMethod/payment.method.module';
 import { WalletModule } from './app/wallet/wallet.module';
 import { TransactionsModule } from './app/transactions/transactions.module';
 import { OriginModule } from './app/origin/origin.module';
+import { ExpenseModule } from './app/expenses/expenses.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { OriginModule } from './app/origin/origin.module';
     WalletModule,
     TransactionsModule,
     OriginModule,
+    ExpenseModule,
   ],
   providers: [
     {

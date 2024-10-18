@@ -48,12 +48,13 @@ describe('AddRecipe', () => {
   it('should add a recipe and update the wallet value', async () => {
     // Arrange
     const newRevenue: NewRevenue = {
-      category_id: 1,
-      origin_id: 1,
-      payment_method_id: 1,
+      category: 'Salario',
+      origin: 'teste',
+      payment_method: 'Pix',
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
+      date: new Date(),
     };
 
     const savedRevenue = { ...newRevenue, id: 1 };
@@ -95,12 +96,13 @@ describe('AddRecipe', () => {
   it('should rollback transaction and log error if wallet not found', async () => {
     // Arrange
     const newRevenue: NewRevenue = {
-      category_id: 1,
-      origin_id: 1,
-      payment_method_id: 1,
+      category: 'Salario',
+      origin: 'teste',
+      payment_method: 'Pix',
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
+      date: new Date(),
     };
 
     queryRunnerMock.manager.save = jest.fn().mockResolvedValue(newRevenue);
@@ -120,12 +122,13 @@ describe('AddRecipe', () => {
   it('should rollback transaction and log error if save fails', async () => {
     // Arrange
     const newRevenue: NewRevenue = {
-      category_id: 1,
-      origin_id: 1,
-      payment_method_id: 1,
+      category: 'Salario',
+      origin: 'teste',
+      payment_method: 'Pix',
       description: 'Test Revenue',
       value: 100,
       user_id: '1',
+      date: new Date(),
     };
 
     queryRunnerMock.manager.save = jest

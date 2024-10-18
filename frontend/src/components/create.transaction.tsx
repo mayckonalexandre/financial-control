@@ -47,7 +47,7 @@ export function CreateTransaction(props: CreateRevenueProps) {
       <ButtonCustom
         onClick={open}
         value="Nova Transação"
-        className="w-40 bg-blue-500 hover:bg-blue-600"
+        className="w-full max-w-40 bg-blue-500 hover:bg-blue-600"
       />
       {openComponent && (
         <Modal className="justify-end">

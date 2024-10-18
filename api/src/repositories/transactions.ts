@@ -36,7 +36,10 @@ FROM
   user usr
 INNER JOIN expenses exp ON exp.user_id = usr.id_user
 WHERE usr.id_user = ?
-  AND exp.deleted = 0;
+  AND exp.deleted = 0
+
+  ORDER BY 
+    date desc;
 `;
 
     const transactions = await this.dataSource.query(sql, [user_id, user_id]);
